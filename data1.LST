@@ -1,0 +1,1280 @@
+SQL> connect/ as sysdba;
+Connected.
+SQL> create user c##Test_User identified by mallika23;
+
+User created.
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> create user c##mallika identified by mallika23;
+User created.
+
+SQL> connect mallika;
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect mallika;
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> create user c##mallika identified by mallika23;
+create user c##mallika identified by mallika23
+            *
+ERROR at line 1:
+ORA-01920: user name 'C##MALLIKA' conflicts with another user or role name 
+
+
+SQL> connect c##mallika;
+ERROR:
+ORA-01045: user C##MALLIKA lacks CREATE SESSION privilege; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect/ as sysdba;
+Connected.
+SQL> grant create session to c##mallika;
+
+Grant succeeded.
+
+SQL> connect c##mallika;
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect c##mallika;
+Connected.
+SQL> grant create table to C##mallika;
+grant create table to C##mallika
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> grant create table to C##mallika;
+
+Grant succeeded.
+
+SQL> create table s(id number(5),name char(20));
+
+Table created.
+
+SQL> connect c##mallika;
+Connected.
+SQL> create table s(id number(5),name char(20));
+
+Table created.
+
+SQL> insert into s(1,'sri');
+insert into s(1,'sri')
+              *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into s values(1,'sri');
+insert into s values(1,'sri')
+            *
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'USERS' 
+
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> grant unlimited tablespace to C##mallika;
+
+Grant succeeded.
+
+SQL> insert into s values(1,'sri');
+
+1 row created.
+
+SQL> insert into s values(2,'mallika');
+
+1 row created.
+
+SQL> select * from s;
+
+        ID NAME                                                                 
+---------- --------------------                                                 
+         1 sri                                                                  
+         2 mallika                                                              
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> revoke create table from C##mallika;
+
+Revoke succeeded.
+
+SQL> create table stu(id number(5),name char(20),addr varchar2(50));
+
+Table created.
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> revoke create table from C##mallika;
+revoke create table from C##mallika
+*
+ERROR at line 1:
+ORA-01952: system privileges not granted to 'C##MALLIKA' 
+
+
+SQL> connect C##mallika;
+Connected.
+SQL> create table stu(id number(5),name char(20),addr varchar2(50));
+create table stu(id number(5),name char(20),addr varchar2(50))
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> select * from all_users;
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYS                                                                             
+         0 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+AUDSYS                                                                          
+         8 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSTEM                                                                          
+         9 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSBACKUP                                                                       
+2147483617 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSDG                                                                           
+2147483618 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSKM                                                                           
+2147483619 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSRAC                                                                          
+2147483620 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OUTLN                                                                           
+        13 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMADMIN_INTERNAL                                                               
+        24 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMUSER                                                                         
+        25 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMROOTUSER                                                                     
+        26 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DIP                                                                             
+        27 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+XS$NULL                                                                         
+2147483638 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+REMOTE_SCHEDULER_AGENT                                                          
+        38 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DBSFWUSER                                                                       
+        39 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORACLE_OCM                                                                      
+        43 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYS$UMF                                                                         
+        52 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DGPDB_INT                                                                       
+        56 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DBSNMP                                                                          
+        65 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMCATUSER                                                                      
+        67 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+APPQOSSYS                                                                       
+        68 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GGSYS                                                                           
+        69 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+XDB                                                                             
+        71 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ANONYMOUS                                                                       
+        72 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+WMSYS                                                                           
+        81 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OJVMSYS                                                                         
+        90 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+CTXSYS                                                                          
+        92 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDSYS                                                                          
+        94 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDDATA                                                                         
+        95 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDPLUGINS                                                                      
+        96 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SI_INFORMTN_SCHEMA                                                              
+        97 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DVSYS                                                                           
+   1279990 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OLAPSYS                                                                         
+       100 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+MDSYS                                                                           
+       103 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+MDDATA                                                                          
+       104 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+LBACSYS                                                                         
+       106 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DVF                                                                             
+       108 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+C##TEST_USER                                                                    
+       109 09-FEB-24 YES N NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+C##MALLIKA                                                                      
+       110 09-FEB-24 YES N NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+39 rows selected.
+
+SQL> drop user c##mallika;
+drop user c##mallika
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> connect/ as sysdba;
+Connected.
+SQL> drop user c##mallika cascade;
+
+User dropped.
+
+SQL> drop user c##Test_User cascade;
+
+User dropped.
+
+SQL> select 8 from all_users;
+
+         8                                                                      
+----------                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+
+         8                                                                      
+----------                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+
+         8                                                                      
+----------                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+
+         8                                                                      
+----------                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+
+37 rows selected.
+
+SQL> select * from all_users;
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYS                                                                             
+         0 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+AUDSYS                                                                          
+         8 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSTEM                                                                          
+         9 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSBACKUP                                                                       
+2147483617 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSDG                                                                           
+2147483618 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSKM                                                                           
+2147483619 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYSRAC                                                                          
+2147483620 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OUTLN                                                                           
+        13 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMADMIN_INTERNAL                                                               
+        24 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMUSER                                                                         
+        25 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMROOTUSER                                                                     
+        26 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DIP                                                                             
+        27 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+XS$NULL                                                                         
+2147483638 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+REMOTE_SCHEDULER_AGENT                                                          
+        38 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DBSFWUSER                                                                       
+        39 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORACLE_OCM                                                                      
+        43 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SYS$UMF                                                                         
+        52 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DGPDB_INT                                                                       
+        56 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DBSNMP                                                                          
+        65 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GSMCATUSER                                                                      
+        67 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+APPQOSSYS                                                                       
+        68 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+GGSYS                                                                           
+        69 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+XDB                                                                             
+        71 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ANONYMOUS                                                                       
+        72 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+WMSYS                                                                           
+        81 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OJVMSYS                                                                         
+        90 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+CTXSYS                                                                          
+        92 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDSYS                                                                          
+        94 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDDATA                                                                         
+        95 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+ORDPLUGINS                                                                      
+        96 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+SI_INFORMTN_SCHEMA                                                              
+        97 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DVSYS                                                                           
+   1279990 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+OLAPSYS                                                                         
+       100 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+MDSYS                                                                           
+       103 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+MDDATA                                                                          
+       104 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+LBACSYS                                                                         
+       106 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+   USER_ID CREATED   COM O INH                                                  
+---------- --------- --- - ---                                                  
+DEFAULT_COLLATION                                                               
+--------------------------------------------------------------------------------
+IMP ALL EXT                                                                     
+--- --- ---                                                                     
+DVF                                                                             
+       108 28-SEP-21 YES Y NO                                                   
+USING_NLS_COMP                                                                  
+NO  NO  NO                                                                      
+                                                                                
+
+37 rows selected.
+
+SQL> spool off;

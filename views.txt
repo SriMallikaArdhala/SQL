@@ -1,0 +1,141 @@
+SQL> create table staff_db(id number(5),name varchar(10),nsec number(2),dept varchar2(5));
+
+Table created.
+
+SQL> insert into staff_db(122,'ramya',6,'it');
+insert into staff_db(122,'ramya',6,'it')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into staff_db values(122,'ramya',6,'it');
+
+1 row created.
+
+SQL> insert into staff_db values(754,'alekhya',8,'cse');
+
+1 row created.
+
+SQL> insert into staff_db values(324,'balu',5,'cse');
+
+1 row created.
+
+SQL> insert into staff_db values(132,'nirmal',10,'plac');
+
+1 row created.
+
+SQL> selct * from staff_db;
+SP2-0734: unknown command beginning "selct * fr..." - rest of line ignored.
+SQL> select * from staff_db;
+
+        ID NAME             NSEC DEPT
+---------- ---------- ---------- -----
+       122 ramya               6 it
+       754 alekhya             8 cse
+       324 balu                5 cse
+       132 nirmal             10 plac
+
+SQL> create view cse_dep as select * from staff_db where dept='cse';
+
+View created.
+
+SQL> select * from cse_dep;
+
+        ID NAME             NSEC DEPT
+---------- ---------- ---------- -----
+       754 alekhya             8 cse
+       324 balu                5 cse
+
+SQL> create view it_dep as select * from staff_db where dept='it';
+
+View created.
+
+SQL> select * from it_dep;
+
+        ID NAME             NSEC DEPT
+---------- ---------- ---------- -----
+       122 ramya               6 it
+
+SQL> update cse_dep set nsec=9 where id=324;
+
+1 row updated.
+
+SQL> select * from cse_dep;
+
+        ID NAME             NSEC DEPT
+---------- ---------- ---------- -----
+       754 alekhya             8 cse
+       324 balu                9 cse
+
+SQL> select * from staff_db;
+
+        ID NAME             NSEC DEPT
+---------- ---------- ---------- -----
+       122 ramya               6 it
+       754 alekhya             8 cse
+       324 balu                9 cse
+       132 nirmal             10 plac
+
+SQL> create table clg_db(id number(5),reseg varchar2(10));
+
+Table created.
+
+SQL> insert into staff_db values(754,'phd,bsc');
+insert into staff_db values(754,'phd,bsc')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into staff_db values(754,'phd/bsc');
+insert into staff_db values(754,'phd/bsc')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into staff_db values(754,'bsc');
+insert into staff_db values(754,'bsc')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into clg_db values(754,'phd,bsc');
+
+1 row created.
+
+SQL> insert into clg_db values(132,'ms');
+
+1 row created.
+
+SQL> insert into clg_db values(324,'bcd');
+
+1 row created.
+
+SQL> select * from clg_db;
+
+        ID RESEG
+---------- ----------
+       754 phd,bsc
+       132 ms
+       324 bcd
+
+SQL> create view reg_details as select s.id,s.dept,c.reseg from staff_db s,clg_db c where s.id=c.id;
+
+View created.
+
+SQL> select * from reg_details;
+
+        ID DEPT  RESEG
+---------- ----- ----------
+       754 cse   phd,bsc
+       324 cse   bcd
+       132 plac  ms
+
+SQL> commit;
+
+Commit complete.
+
+SQL>

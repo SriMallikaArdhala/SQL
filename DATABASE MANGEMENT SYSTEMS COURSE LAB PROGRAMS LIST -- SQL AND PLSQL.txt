@@ -1,0 +1,23 @@
+List of experiments: 
+SQL 
+1. Queries for Creating, Dropping, and Altering Tables, Views, and Constraints [CO1] 
+2. Queries to facilitate acquaintance of Built-In Functions, String Functions, Numeric 
+Functions, Date Functions and Conversion Functions. [CO1] 
+3. Queries using operators in SQL [CO2] 
+4. Queries to Retrieve and Change Data: Select, Insert, Delete, and Update [CO2] 
+5. Queries using Group By, Order By, and Having Clauses [CO2] 
+6. Queries on Controlling Data: Commit, Rollback, and Save point [CO2] 
+7. Queries to Build Report in SQL *PLUS [CO2] 
+8. Queries on Joins and Correlated Sub-Queries [CO2] 
+9. Queries on Working with Index, Sequence, Synonym, Controlling Access, and Locking 
+Rows for Update, Creating Password and Security features [CO2] 
+PL/SQL 
+1. Write a PL/SQL Code using Basic Variable, Anchored Declarations, and Usage of Assignment 
+Operation [CO3] 
+2. Write a PL/SQL Code Bind and Substitution Variables. Printing in PL/SQL [CO3] 
+3. Write a PL/SQL block using SQL and Control Structures in PL/SQL [CO3] 
+4. Write a PL/SQL Code using Cursors, Exceptions and Composite Data Types [CO3] 
+5. Write a PL/SQL Code using Procedures, Functions, and Packages FORMS [CO4] 
+6. Write a PL/SQL Code Creation of forms for any Information System such as Student 
+Information System, Employee Information System etc. [CO4] 
+7. Demonstration of database connectivity [CO4] 

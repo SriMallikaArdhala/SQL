@@ -1,0 +1,172 @@
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                    NOT NULL NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(13)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      5555 venkat     union      Savings       Vijayawada                       
+
+SQL> select Acc_no,Bank_name from Bank_details;
+
+    ACC_NO BANK_NAME                                                            
+---------- ----------                                                           
+      1111 SBI                                                                  
+      2222 SBI                                                                  
+      3333 HDFC                                                                 
+      4444 Fedral                                                               
+      5555 union                                                                
+
+SQL> select Acc_no as AN,Bank_name as BN from Bank_details;
+
+        AN BN                                                                   
+---------- ----------                                                           
+      1111 SBI                                                                  
+      2222 SBI                                                                  
+      3333 HDFC                                                                 
+      4444 Fedral                                                               
+      5555 union                                                                
+
+SQL> select distinct Bank_name from Bank_details;
+
+BANK_NAME                                                                       
+----------                                                                      
+SBI                                                                             
+HDFC                                                                            
+Fedral                                                                          
+union                                                                           
+
+SQL> select distinct acc_type from Bank_details;
+
+ACC_TYPE                                                                        
+-------------                                                                   
+savings                                                                         
+NRI                                                                             
+FD                                                                              
+Savings                                                                         
+
+SQL> select * from Bank_details where Branch='Guntur';
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+
+SQL> insert into Bank_details values(1000,'valli','SBI','RD','Hyderabad');
+
+1 row created.
+
+SQL> insert into Bank_details(Acc_no,Acc_holder,Bank_name,Branch) values(&Acc_no,&Acc_holder,&Bank_name,&Branch);
+Enter value for acc_no: 1334
+Enter value for acc_holder: 'chinna'
+Enter value for bank_name: 'HDFC'
+Enter value for branch: 'Prakasam'
+old   1: insert into Bank_details(Acc_no,Acc_holder,Bank_name,Branch) values(&Acc_no,&Acc_holder,&Bank_name,&Branch)
+new   1: insert into Bank_details(Acc_no,Acc_holder,Bank_name,Branch) values(1334,'chinna','HDFC','Prakasam')
+
+1 row created.
+
+SQL> select * from BAnk_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      1334 chinna     HDFC                     Prakasam                         
+      5555 venkat     union      Savings       Vijayawada                       
+      1000 valli      SBI        RD            Hyderabad                        
+
+7 rows selected.
+
+SQL> select * from Bank_details where Acc_type=null;
+
+no rows selected
+
+SQL> select * from Bank_details where Acc_type is null;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1334 chinna     HDFC                     Prakasam                         
+
+SQL> update Bank_details set acc_type='FD' where Acc_no=1334;
+
+1 row updated.
+
+SQL> select * from BAnk_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      1334 chinna     HDFC       FD            Prakasam                         
+      5555 venkat     union      Savings       Vijayawada                       
+      1000 valli      SBI        RD            Hyderabad                        
+
+7 rows selected.
+
+SQL> delete from Bank
+  2  
+SQL> delete from Bank_details where Acc_no=5555;
+
+1 row deleted.
+
+SQL> select * from BAnk_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      1334 chinna     HDFC       FD            Prakasam                         
+      1000 valli      SBI        RD            Hyderabad                        
+
+6 rows selected.
+
+SQL> desc open_acc;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                             NUMBER(5)
+ NAME                                               CHAR(10)
+ BANK                                               CHAR(7)
+ AGE                                                NUMBER(2)
+
+SQL> select * from open_acc;
+
+no rows selected
+
+SQL> select * from acc_open;
+
+ACC_TYPE   BANK_AC        AGE     ACC_NO                                        
+---------- ------- ---------- ----------                                        
+savings    SBI             20       2342                                        
+FD         HDFC            19       7568                                        
+
+SQL> delete from acc_open;
+
+2 rows deleted.
+
+SQL> desc acc_open;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_TYPE                                           CHAR(10)
+ BANK_ACC                                           CHAR(7)
+ AGE                                                NUMBER(2)
+ ACC_NO                                             NUMBER(5)
+
+SQL> spool off;

@@ -1,0 +1,587 @@
+SQL> select * from bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+      6666 nani       Indian     RD            Prakasam            458900       
+      5555 venkat     union      Savings       Vijayawada             500       
+
+6 rows selected.
+
+SQL> select count(*) from bank_details;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         6                                                                      
+
+SQL> select count(*) from bank_details where amount>15000;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         5                                                                      
+
+SQL> select max(amount) ,min(amount) from bank_details;
+
+MAX(AMOUNT) MIN(AMOUNT)                                                         
+----------- -----------                                                         
+     458900         500                                                         
+
+SQL> select avg(amount) from bank_details;
+
+AVG(AMOUNT)                                                                     
+-----------                                                                     
+ 148483.333                                                                     
+
+SQL> select sum(amount) from bank_details;
+
+SUM(AMOUNT)                                                                     
+-----------                                                                     
+     890900                                                                     
+
+SQL> select sqrt(amount) from bank_details;
+
+SQRT(AMOUNT)                                                                    
+------------                                                                    
+  223.606798                                                                    
+  254.950976                                                                    
+  547.722558                                                                    
+  128.452326                                                                    
+  677.421582                                                                    
+  22.3606798                                                                    
+
+6 rows selected.
+
+SQL> select acc_no,acc_holder,sqrt(amount) from bank_details;
+
+    ACC_NO ACC_HOLDER SQRT(AMOUNT)                                              
+---------- ---------- ------------                                              
+      1111 sai          223.606798                                              
+      2222 manasa       254.950976                                              
+      3333 Anjali       547.722558                                              
+      4444 Anji         128.452326                                              
+      6666 nani         677.421582                                              
+      5555 venkat       22.3606798                                              
+
+6 rows selected.
+
+SQL> select concat(acc_no,branch) from bank_details;
+
+CONCAT(ACC_NO,BRANCH)                                                           
+-------------------------------------------------------                         
+1111Guntur                                                                      
+2222Hyderabad                                                                   
+3333Guntur                                                                      
+4444Guntur                                                                      
+6666Prakasam                                                                    
+5555Vijayawada                                                                  
+
+6 rows selected.
+
+SQL> des dual;
+SP2-0042: unknown command "des dual" - rest of line ignored.
+SQL> desc dual;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> select * from dual;
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> select abs(-89) from dual;
+
+  ABS(-89)                                                                      
+----------                                                                      
+        89                                                                      
+
+SQL> select abs(-89.9) from dual;
+
+ABS(-89.9)                                                                      
+----------                                                                      
+      89.9                                                                      
+
+SQL> select abs(56) from dual;
+
+   ABS(56)                                                                      
+----------                                                                      
+        56                                                                      
+
+SQL> select abs(-56) absolute from dual;
+
+  ABSOLUTE                                                                      
+----------                                                                      
+        56                                                                      
+
+SQL> select sin(30*0.017455) sine30 from dual;
+
+    SINE30                                                                      
+----------                                                                      
+.500044361                                                                                                                                            
+
+SQL> select sin(15*0.017455) sine15 from dual;
+
+    SINE15                                                                      
+----------                                                                      
+.258843785                                                                                                                                          
+
+SQL> select asin(15*0.017455) asine15 from dual;
+
+   ASINE15                                                                      
+----------                                                                      
+.264912685                                                                      
+
+SQL> select cos(30*0.017455) cos30 from dual;
+
+     COS30                                                                      
+----------                                                                      
+ .86599979                                                                      
+
+SQL> select acos(30*0.017455) acos30 from dual;
+
+    ACOS30                                                                      
+----------                                                                      
+1.01966662                                                                      
+
+SQL> select acos(1) acos from dual;
+
+      ACOS                                                                      
+----------                                                                      
+         0                                                                      
+
+SQL> select acos(-1) acos from dual;
+
+      ACOS                                                                      
+----------                                                                      
+3.14159265                                                                      
+
+SQL> select exp(4) epow4 from dual;
+
+     EPOW4                                                                      
+----------                                                                      
+  54.59815                                                                      
+
+SQL> select exp(1) epow1 from dual;
+
+     EPOW1                                                                      
+----------                                                                      
+2.71828183                                                                      
+
+SQL> select ceil(8.6) from dual;
+
+ CEIL(8.6)                                                                      
+----------                                                                      
+         9                                                                      
+
+SQL> select floor(8.6) from dual;
+
+FLOOR(8.6)                                                                      
+----------                                                                      
+         8                                                                      
+
+SQL> select log(5,25) from dual;
+
+ LOG(5,25)                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> select power(5,3) from dual;
+
+POWER(5,3)                                                                      
+----------                                                                      
+       125                                                                      
+
+SQL> select round(7.89) from dual;
+
+ROUND(7.89)                                                                     
+-----------                                                                     
+          8                                                                     
+
+SQL> select round(-2.39) from dual;
+
+ROUND(-2.39)                                                                    
+------------                                                                    
+          -2                                                                    
+
+SQL> select trunc(67.656,2) from dual;
+
+TRUNC(67.656,2)                                                                 
+---------------                                                                 
+          67.65                                                                 
+
+SQL> select trunc(67.656,1) from dual;
+
+TRUNC(67.656,1)                                                                 
+---------------                                                                 
+           67.6                                                                 
+
+select concat('sri','mallika') as fullname from dual;
+
+FULLNAME
+----------
+srimallika
+
+SQL> select 'sri'||'mallika' fullname from dual;
+
+FULLNAME
+----------
+srimallika
+
+SQL> select replace('databasemanagement','a','e') new from dual;
+
+NEW
+------------------
+detebesemenegement
+
+SQL> select replace('databasemanagement','j','e') new from dual;
+
+NEW
+------------------
+databasemanagement
+
+SQL> select replace('databasemanagement','a') new from dual;
+
+NEW
+-------------
+dtbsemngement
+
+SQL> select lower('mallika') lcase from dual;
+
+LCASE
+-------
+mallika
+
+SQL> select upper('mallika') ucase from dual;
+
+UCASE
+-------
+MALLIKA
+
+SQL> select trim(    'krsihna'   ) as changes from dual;
+
+CHANGES
+-------
+krsihna
+
+SQL> select trim(leading 'k'  from  'krsihna'   ) as changes from dual;
+
+CHANGE
+------
+rsihna
+
+SQL> select trim(trailing 'n'  from  'krsihna'   ) as changes from dual;
+
+CHANGES
+-------
+krsihna
+
+SQL> select trim(trailing 'a'  from  'krsihna'   ) as changes from dual;
+
+CHANGE
+------
+krsihn
+
+SQL> select trim('s'  from  'krsihna'   ) as changes from dual;
+
+CHANGES
+-------
+krsihna
+
+SQL> select trim('a'  from  'aakrsihna'   ) as changes from dual;
+
+CHANGE
+------
+krsihn
+
+SQL>
+SQL> select ltrim(   'balu')triml from dual;
+
+TRIM
+----
+balu
+
+SQL> select ltrim('-----balu','-')triml from dual;
+
+TRIM
+----
+balu
+
+SQL> select ltrim('43balu','43')triml from dual;
+
+TRIM
+----
+balu
+
+SQL> select ltrim('43balu','lu')triml from dual;
+
+TRIML
+------
+43balu
+
+SQL> select rtrim('   balu  ')trimr from dual;
+
+TRIMR
+-------
+   balu
+
+SQL> select rtrim('------balu----')trimr from dual;
+
+TRIMR
+--------------
+------balu----
+
+SQL> select rtrim('------balu----','-')trimr from dual;
+
+TRIMR
+----------
+------balu
+
+SQL> select rtrim('43balu432','432')trimr from dual;
+
+TRIMR
+------
+43balu
+
+SQL> select rtrim('43balu432','u4')trimr from dual;
+
+TRIMR
+---------
+43balu432
+
+SQL> select * from bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      5555 venkat     union      Savings       Vijayawada             500
+
+6 rows selected.
+
+SQL> select lpad(amount,7,'.')from bank_details;
+
+LPAD(AMOUNT,7,'.')
+----------------------------
+..50000
+..65000
+.300000
+..16500
+.458900
+....500
+
+6 rows selected.
+
+SQL> select rpad(amount,7,'*')from bank_details;
+
+RPAD(AMOUNT,7,'*')
+----------------------------
+50000**
+65000**
+300000*
+16500**
+458900*
+500****
+
+6 rows selected.
+
+SQL> select initcap('databasemanagementsystem') as fcaps from dual;
+
+FCAPS
+------------------------
+Databasemanagementsystem
+
+SQL> select initcap('data base management system') as fcaps from dual;
+
+FCAPS
+---------------------------
+Data Base Management System
+
+SQL> select substr('databasemanagementsystem',2,3)  from dual;
+
+SUB
+---
+ata
+
+SQL> select substr('databasemanagementsystem',-8,4)  from dual;
+
+SUBS
+----
+ntsy
+
+SQL> select substr('databasemanagementsystem',5,7.9)  from dual;
+
+SUBSTR(
+-------
+baseman
+
+SQL> select substr('databasemanagementsystem',2,3)str  from dual;
+
+STR
+---
+ata
+
+SQL> select substr('databasemanagementsystem',-8,4)str  from dual;
+
+STR
+----
+ntsy
+
+SQL> select substr('databasemanagementsystem',5,7.9)str  from dual;
+
+STR
+-------
+baseman
+
+SQL> select translate('press#mallika#roopa'
+  2
+SQL> select translate('press#mallika#roopa','#',',') as newone from dual;
+
+NEWONE
+-------------------
+press,mallika,roopa
+
+SQL> select translate('srimallika..!!','llm','ef') as newone from dual;
+
+NEWONE
+-------------
+sriaeeika..!!
+
+SQL> select translate('srimallika..!!','llm','eef') as newone from dual;
+
+NEWONE
+--------------
+srifaeeika..!!
+
+SQL> select length('srimallika') len from dual;
+
+       LEN
+----------
+        10
+
+SQL> select length('balakrishna') len from dual;
+
+       LEN
+----------
+        11
+
+SQL> select bank_name,acc_no,length(acc_holder) from bank_details;
+
+BANK_NAME      ACC_NO LENGTH(ACC_HOLDER)
+---------- ---------- ------------------
+SBI              1111                 10
+SBI              2222                 10
+HDFC             3333                 10
+Fedral           4444                 10
+Indian           6666                 10
+union            5555                 10
+
+6 rows selected.
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+01-APR-24
+
+SQL> select sysdate,systime from dual;
+select sysdate,systime from dual
+               *
+ERROR at line 1:
+ORA-00904: "SYSTIME": invalid identifier
+
+
+SQL> select sysdate-10 from dual;
+
+SYSDATE-1
+---------
+22-MAR-24
+
+SQL> select sysdate+10 from dual;
+
+SYSDATE+1
+---------
+11-APR-24
+
+
+SQL> select to_char(sysdate,'mm-dd-yyyy hh:mi:ss') as now from dual;
+
+NOW
+-------------------
+04-01-2024 02:51:40
+
+SQL> select add_months(sysdate,3) from dual;
+
+ADD_MONTH
+---------
+01-JUL-24
+
+SQL> select add_months(sysdate,8) from dual;
+
+ADD_MONTH
+---------
+01-DEC-24
+
+SQL> select add_months(sysdate,-8) from dual;
+
+ADD_MONTH
+---------
+01-AUG-23
+SQL> select last_day(sysdate) from dual;
+
+LAST_DAY(
+---------
+30-APR-24
+
+SQL> select sysdate,last_day(sysdate) as last from dual;
+
+SYSDATE   LAST
+--------- ---------
+02-APR-24 30-APR-24
+
+SQL> select sysdate,last_day(sysdate) as last ,last_day(sysdate)-sysdate as daysleft from dual;
+
+SYSDATE   LAST        DAYSLEFT
+--------- --------- ----------
+02-APR-24 30-APR-24         28
+
+SQL> select next_day(sysdate,'saturday') as last from dual;
+
+LAST
+---------
+06-APR-24
+
+SQL> select next_day(sysdate,'saturday') from dual;
+
+NEXT_DAY(
+---------
+06-APR-24
+
+SQL> select months_between('02-april-2024','23-july-2004') from dual;
+
+MONTHS_BETWEEN('02-APRIL-2024','23-JULY-2004')
+----------------------------------------------
+                                    236.322581
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+02-APR-24
+
+SQL> select current_date,sessiontimezone from dual;
+
+CURRENT_D
+---------
+SESSIONTIMEZONE
+---------------------------------------------------------------------------
+02-APR-24
++05:30
+
+SQL> spool off;

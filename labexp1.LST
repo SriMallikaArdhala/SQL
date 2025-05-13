@@ -1,0 +1,292 @@
+SQL> create table Bank_details(Acc_no number(5),Acc_holder char(10),Bank_name char(10),Acc_type char(15),Branch varchar2(15));
+
+Table created.
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                             NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(15)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> create table emp(id number(5),name char(12),dept char(15));
+
+Table created.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               CHAR(12)
+ DEPT                                               CHAR(15)
+
+SQL> drop table emp;
+
+Table dropped.
+
+SQL> desc emp;
+ERROR:
+ORA-04043: object emp does not exist 
+
+
+SQL> alter table Bank_details add address varchar2(18);
+
+Table altered.
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                             NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(15)
+ BRANCH                                             VARCHAR2(15)
+ ADDRESS                                            VARCHAR2(18)
+
+SQL> alter table Bank_details drop column address;
+
+Table altered.
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                             NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(15)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> alter table Bank_details modify acc_type char(13);
+
+Table altered.
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                             NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(13)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> insert into Bank_details values(1111,'sai','SBI','savings','Guntur');
+
+1 row created.
+
+SQL> insert into Bank_details values(2222,'manasa','SBI','NRI','Hyderabad');
+
+1 row created.
+
+SQL> insert into Bank_details values(3333,'Anjali','HDFC','FD','Guntur');
+
+1 row created.
+
+SQL> alter table Bank_details add constraint unique_acc unique(Acc_no);
+
+Table altered.
+
+SQL> insert into Bank_details values(3333,'Anji','Fedral','Savings','Guntur');
+insert into Bank_details values(3333,'Anji','Fedral','Savings','Guntur')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.UNIQUE_ACC) violated 
+
+
+SQL> insert into Bank_details values(4444,'Anji','Fedral','Savings','Guntur');
+
+1 row created.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+
+SQL> insert into Bank_details values(5555,'venkat',null,'Savings','Vijayawada');
+
+1 row created.
+
+SQL> insert into Bank_details values(null,'venkat',null,'Savings','Vijayawada');
+
+1 row created.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      5555 venkat                Savings       Vijayawada                       
+           venkat                Savings       Vijayawada                       
+
+6 rows selected.
+
+SQL> alter table Bank_details drop constraint unique_acc;
+
+Table altered.
+
+SQL> alter table Bank_details add constraint primary_acc primary key(Acc_no);
+alter table Bank_details add constraint primary_acc primary key(Acc_no)
+                                                                *
+ERROR at line 1:
+ORA-01449: column contains NULL values; cannot alter to NOT NULL 
+
+
+SQL> delete from Bank_details where Acc_no=5555;
+
+1 row deleted.
+
+SQL> delete from Bank_details where Acc_holder='venkat';
+
+1 row deleted.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+
+SQL> alter table Bank_details add constraint primary_acc primary key(Acc_no);
+
+Table altered.
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                    NOT NULL NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(13)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> alter table Bank_details modify Bank_name char not null;
+alter table Bank_details modify Bank_name char not null
+                                *
+ERROR at line 1:
+ORA-01441: cannot decrease column length because some value is too big 
+
+
+SQL> insert into Bank_details values(null,'venkat','union','Savings','Vijayawada');
+insert into Bank_details values(null,'venkat','union','Savings','Vijayawada')
+                                *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."BANK_DETAILS"."ACC_NO") 
+
+
+SQL> insert into Bank_details values(5555,'venkat','union','Savings','Vijayawada');
+
+1 row created.
+
+SQL> create table acc_open(acc_type char(10),bank_acc char(7),age number(2));
+
+Table created.
+
+SQL> alter table acc_open add acc_no number(5);
+
+Table altered.
+
+SQL> insert into acc_open values('savings','SBI',20,2342);
+
+1 row created.
+
+SQL> alter table acc_open acc_no constraint check_const check(age>=18);
+alter table acc_open acc_no constraint check_const check(age>=18)
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table acc_open constraint check_const check(age>=18);
+alter table acc_open constraint check_const check(age>=18)
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table acc_open add constraint check_const check(age>=18);
+
+Table altered.
+
+SQL> insert into acc_open values('FD','HDFC',19,7568);
+
+1 row created.
+
+SQL> insert into acc_open values('FD','HDFC',16,7568);
+insert into acc_open values('FD','HDFC',16,7568)
+*
+ERROR at line 1:
+ORA-02290: check constraint (SYSTEM.CHECK_CONST) violated 
+
+
+SQL> select * from acc_open;
+
+ACC_TYPE   BANK_AC        AGE     ACC_NO                                        
+---------- ------- ---------- ----------                                        
+savings    SBI             20       2342                                        
+FD         HDFC            19       7568                                        
+
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                    NOT NULL NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(13)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      5555 venkat     union      Savings       Vijayawada                       
+
+SQL> create table open_acc(acc_type char(10),bank_acc char(7),age number(2),foreign key(acc_type) references Bank_details(acc_type));
+create table open_acc(acc_type char(10),bank_acc char(7),age number(2),foreign key(acc_type) references Bank_details(acc_type))
+                                                                                                                     *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> create table open_acc(acc_no number(5),name char(10),bank char(7),age number(2),foreign key(acc_no) references Bank_details(acc_no));
+
+Table created.
+
+SQL> insert into open_acc values(1111,'sai','sbi',20);
+
+1 row created.
+
+SQL> insert into open_acc values(2222,'deeksha','sbi',18);
+
+1 row created.
+
+SQL> insert into open_acc values(1233,'mum','fedral',19);
+insert into open_acc values(1233,'mum','fedral',19)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C008331) violated - parent key not 
+found 
+
+
+SQL> select * from open_acc;
+
+    ACC_NO NAME       BANK           AGE                                        
+---------- ---------- ------- ----------                                        
+      1111 sai        sbi             20                                        
+      2222 deeksha    sbi             18                                        
+
+SQL> 
+SQL> spool off;

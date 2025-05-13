@@ -1,0 +1,227 @@
+SQL> desc Bank_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACC_NO                                    NOT NULL NUMBER(5)
+ ACC_HOLDER                                         CHAR(10)
+ BANK_NAME                                          CHAR(10)
+ ACC_TYPE                                           CHAR(13)
+ BRANCH                                             VARCHAR2(15)
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH                           
+---------- ---------- ---------- ------------- ---------------                  
+      1111 sai        SBI        savings       Guntur                           
+      2222 manasa     SBI        NRI           Hyderabad                        
+      3333 Anjali     HDFC       FD            Guntur                           
+      4444 Anji       Fedral     Savings       Guntur                           
+      5555 venkat     union      Savings       Vijayawada                       
+
+SQL> alter table Bank_details add amount number(7);
+
+Table altered.
+
+SQL> update Bank_details set amount=50000 where Acc_no=1111;
+
+1 row updated.
+
+SQL> update Bank_details set amount=65000 where Acc_no=2222;
+
+1 row updated.
+
+SQL> update Bank_details set amount=300000 where Acc_no=3333;
+
+1 row updated.
+
+SQL> update Bank_details set amount=16500 where Acc_no=4444;
+
+1 row updated.
+
+SQL> update Bank_details set amount=500 where Acc_no=5555;
+
+1 row updated.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+      5555 venkat     union      Savings       Vijayawada             500       
+
+SQL> select Acc_no,Bank_name,amount,amount+100 from Bank_details;
+
+    ACC_NO BANK_NAME      AMOUNT AMOUNT+100                                     
+---------- ---------- ---------- ----------                                     
+      1111 SBI             50000      50100                                     
+      2222 SBI             65000      65100                                     
+      3333 HDFC           300000     300100                                     
+      4444 Fedral          16500      16600                                     
+      5555 union             500        600                                     
+
+SQL> select Acc_no,Bank_name,amount,amount-100 from Bank_details;
+
+    ACC_NO BANK_NAME      AMOUNT AMOUNT-100                                     
+---------- ---------- ---------- ----------                                     
+      1111 SBI             50000      49900                                     
+      2222 SBI             65000      64900                                     
+      3333 HDFC           300000     299900                                     
+      4444 Fedral          16500      16400                                     
+      5555 union             500        400                                     
+
+SQL> select Acc_no,Bank_name,amount,amount/10 from Bank_details;
+
+    ACC_NO BANK_NAME      AMOUNT  AMOUNT/10                                     
+---------- ---------- ---------- ----------                                     
+      1111 SBI             50000       5000                                     
+      2222 SBI             65000       6500                                     
+      3333 HDFC           300000      30000                                     
+      4444 Fedral          16500       1650                                     
+      5555 union             500         50                                     
+
+SQL> select Acc_no,Bank_name,amount,amount=amount+amount*0.1 from Bank_details;
+select Acc_no,Bank_name,amount,amount=amount+amount*0.1 from Bank_details
+                                     *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select Acc_no,Bank_name,amount,amount+amount*0.1 from Bank_details;
+
+    ACC_NO BANK_NAME      AMOUNT AMOUNT+AMOUNT*0.1                              
+---------- ---------- ---------- -----------------                              
+      1111 SBI             50000             55000                              
+      2222 SBI             65000             71500                              
+      3333 HDFC           300000            330000                              
+      4444 Fedral          16500             18150                              
+      5555 union             500               550                              
+
+SQL> select Acc_no,Bank_name,amount,amount+amount*0.1 offerings from Bank_details;
+
+    ACC_NO BANK_NAME      AMOUNT  OFFERINGS                                     
+---------- ---------- ---------- ----------                                     
+      1111 SBI             50000      55000                                     
+      2222 SBI             65000      71500                                     
+      3333 HDFC           300000     330000                                     
+      4444 Fedral          16500      18150                                     
+      5555 union             500        550                                     
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+      5555 venkat     union      Savings       Vijayawada             500       
+
+SQL> select * from Bank_details where amount<1000;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      5555 venkat     union      Savings       Vijayawada             500       
+
+SQL> select * from Bank_details where amount>30000;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+
+SQL> select * from Bank_details where amount>=50000;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+
+SQL> select * from Bank_details where amount>50000;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+
+SQL> selectt * from Bank_details where amount between 25000 and 500000;
+SP2-0734: unknown command beginning "selectt * ..." - rest of line ignored.
+SQL> select * from Bank_details where amount between 25000 and 500000;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      2222 manasa     SBI        NRI           Hyderabad            65000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+
+SQL> select * from Bank_details where amount in (30000,50000);
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+
+SQL> select * from Bank_details where amount in (50000);
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+
+SQL> select * from Bank_details where acc_holder like 'ai%';
+
+no rows selected
+
+SQL> select * from Bank_details where acc_holder like 'Ai%';
+
+no rows selected
+
+SQL> select * from Bank_details where acc_holder like 'A%';
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+
+SQL> select * from Bank_details where branch like '__n%';
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      3333 Anjali     HDFC       FD            Guntur              300000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+
+SQL> select * from Bank_details where acc_holder like '%a';
+
+no rows selected
+
+SQL> select * from Bank_details where acc_holder like '%i';
+
+no rows selected
+
+SQL> select * from Bank_details where branch like '%m';
+
+no rows selected
+
+SQL> select * from Bank_details where Acc_type like '%in%';
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT       
+---------- ---------- ---------- ------------- --------------- ----------       
+      1111 sai        SBI        savings       Guntur               50000       
+      4444 Anji       Fedral     Savings       Guntur               16500       
+      5555 venkat     union      Savings       Vijayawada             500       
+
+SQL> select * from Bank_details where Branch like '%m';
+
+no rows selected
+
+SQL> select * from Bank_details where Acc_type like 's%s';
+
+no rows selected
+
+SQL> select * from Bank_details where Acc_holder like 's%i';
+
+no rows selected
+
+SQL> spool off;

@@ -1,0 +1,274 @@
+SQL> create table stu_details(stu_id number(5) not null,stu_name char(10),stu_add  varchar2(30));
+
+Table created.
+
+SQL> alter table stu_details add hobby char(20);
+
+Table altered.
+
+SQL> desc stu_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                    NOT NULL NUMBER(5)
+ STU_NAME                                           CHAR(10)
+ STU_ADD                                            VARCHAR2(30)
+ HOBBY                                              CHAR(20)
+
+SQL> alter table stu_details drop column hobby;
+
+Table altered.
+
+SQL> desc stu_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                    NOT NULL NUMBER(5)
+ STU_NAME                                           CHAR(10)
+ STU_ADD                                            VARCHAR2(30)
+
+SQL> alter table stu_details modify stu_address varchar2(50);
+alter table stu_details modify stu_address varchar2(50)
+                               *
+ERROR at line 1:
+ORA-00904: "STU_ADDRESS": invalid identifier 
+
+
+SQL> alter table stu_details modify stu_add varchar2(50);
+
+Table altered.
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table stu(id number(4),name char(10));
+
+Table created.
+
+SQL> truncate table stu;
+
+Table truncated.
+
+SQL> desc stu;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(4)
+ NAME                                               CHAR(10)
+
+SQL> select * from stu;
+
+no rows selected
+
+SQL> select * from stu_details;
+
+no rows selected
+
+SQL> desc stu_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                    NOT NULL NUMBER(5)
+ STU_NAME                                           CHAR(10)
+ STU_ADD                                            VARCHAR2(50)
+
+SQL> rename stu_details to student;
+
+Table renamed.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                    NOT NULL NUMBER(5)
+ STU_NAME                                           CHAR(10)
+ STU_ADD                                            VARCHAR2(50)
+
+SQL> select * from student --details of students;
+
+no rows selected
+
+SQL> select * from student /* student data1
+  2  student data2
+  3  student data3*/
+  4  
+SQL> select * from student /* student data1
+  2  student  data2*/;
+
+no rows selected
+
+SQL> insert into student values(1209,'srimallika','gunt');
+
+1 row created.
+
+SQL> insert into student values(1210,'mallika','guntur');
+
+1 row created.
+
+SQL> select * from student --details of students;
+
+    STU_ID STU_NAME   STU_ADD                                                   
+---------- ---------- --------------------------------------------------        
+      1209 srimallika gunt                                                      
+      1210 mallika    guntur                                                    
+
+SQL> select * from student /* student data1
+  2  student data2*/;
+
+    STU_ID STU_NAME   STU_ADD                                                   
+---------- ---------- --------------------------------------------------        
+      1209 srimallika gunt                                                      
+      1210 mallika    guntur                                                    
+
+SQL> insert into student (stu_id,stu_name,stu_add) values(&stu_id,&stu_name,&stu_add);
+Enter value for stu_id: 1211
+Enter value for stu_name: nani
+Enter value for stu_add: gun
+old   1: insert into student (stu_id,stu_name,stu_add) values(&stu_id,&stu_name,&stu_add)
+new   1: insert into student (stu_id,stu_name,stu_add) values(1211,nani,gun)
+insert into student (stu_id,stu_name,stu_add) values(1211,nani,gun)
+                                                               *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into student (stu_id,stu_name,stu_add) values(&stu_id,&stu_name,&stu_add);
+Enter value for stu_id: 1211
+Enter value for stu_name: 'nani'
+Enter value for stu_add: 'gun'
+old   1: insert into student (stu_id,stu_name,stu_add) values(&stu_id,&stu_name,&stu_add)
+new   1: insert into student (stu_id,stu_name,stu_add) values(1211,'nani','gun')
+
+1 row created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                    NOT NULL NUMBER(5)
+ STU_NAME                                           CHAR(10)
+ STU_ADD                                            VARCHAR2(50)
+
+SQL> select * from student;
+
+    STU_ID STU_NAME   STU_ADD                                                   
+---------- ---------- --------------------------------------------------        
+      1209 srimallika gunt                                                      
+      1210 mallika    guntur                                                    
+      1211 nani       gun                                                       
+
+SQL> insert into student values(1211,'naveen','guntur');
+
+1 row created.
+
+SQL> select * from student;
+
+    STU_ID STU_NAME   STU_ADD                                                   
+---------- ---------- --------------------------------------------------        
+      1209 srimallika gunt                                                      
+      1210 mallika    guntur                                                    
+      1211 nani       gun                                                       
+      1211 naveen     guntur                                                    
+
+SQL> insert into student values(,'naveen','guntur');
+insert into student values(,'naveen','guntur')
+                           *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> insert into student values(null,'naveen','guntur');
+insert into student values(null,'naveen','guntur')
+                           *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."STUDENT"."STU_ID") 
+
+
+SQL> alter table student add constraint const_name unique(stu_name);
+
+Table altered.
+
+SQL> insert into student values(1212,'srimallika','guntur');
+insert into student values(1212,'srimallika','guntur')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.CONST_NAME) violated 
+
+
+SQL> alter table student drop constraint const_name;
+
+Table altered.
+
+SQL> alter table student add constarint primary_const primary key(stu_name);
+alter table student add constarint primary_const primary key(stu_name)
+                                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table student add constarint primary_const primarykey(stu_name);
+alter table student add constarint primary_const primarykey(stu_name)
+                                                 *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table student add constarint primary_const primarykey(stu_id);
+alter table student add constarint primary_const primarykey(stu_id)
+                                                 *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table student add constarint primary_const primary_key(stu_id);
+alter table student add constarint primary_const primary_key(stu_id)
+                                                 *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> create table ord(id int,name varchar2(15),location varchar2(16)default 'vijayawada');
+
+Table created.
+
+SQL> insert into ord values(10,'hari','hyd');
+
+1 row created.
+
+SQL> insert into ord values(11,'ravi','hyd');
+
+1 row created.
+
+SQL> alter table ord add constraint primary_cons primary key(id);
+
+Table altered.
+
+SQL> select * from ord;
+
+        ID NAME            LOCATION                                             
+---------- --------------- ----------------                                     
+        10 hari            hyd                                                  
+        11 ravi            hyd                                                  
+
+SQL> insert into ord values(12,'ramu');
+insert into ord values(12,'ramu')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into ord(id,name,location) values(12,'ramu');
+insert into ord(id,name,location) values(12,'ramu')
+                                  *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into ord(id,name) values(12,'ramu');
+
+1 row created.
+
+SQL> select * from ord;
+
+        ID NAME            LOCATION                                             
+---------- --------------- ----------------                                     
+        10 hari            hyd                                                  
+        11 ravi            hyd                                                  
+        12 ramu            vijayawada                                           
+
+SQL> spool off;

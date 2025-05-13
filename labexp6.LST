@@ -1,0 +1,116 @@
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      5555 venkat     union      Savings       Vijayawada             500
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> savepoint a;
+
+Savepoint created.
+
+SQL> insert into Bank_details value(1234,'valli','SBI','FD','Prakasam',54634);
+insert into Bank_details value(1234,'valli','SBI','FD','Prakasam',54634)
+                               *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into Bank_details values(1234,'valli','SBI','FD','Prakasam',54634);
+
+1 row created.
+
+SQL> savepoint b;
+
+Savepoint created.
+
+SQL> Select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      1234 valli      SBI        FD            Prakasam             54634
+      5555 venkat     union      Savings       Vijayawada             500
+
+7 rows selected.
+
+SQL> update Bank_details set Acc_holder='malli' where Acc_no=1234;
+
+1 row updated.
+
+SQL> savepoint c;
+
+Savepoint created.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      1234 malli      SBI        FD            Prakasam             54634
+      5555 venkat     union      Savings       Vijayawada             500
+
+7 rows selected.
+
+SQL> rollback to b;
+
+Rollback complete.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      1234 valli      SBI        FD            Prakasam             54634
+      5555 venkat     union      Savings       Vijayawada             500
+
+7 rows selected.
+
+SQL> rollback to a;
+
+Rollback complete.
+
+SQL> select * from Bank_details;
+
+    ACC_NO ACC_HOLDER BANK_NAME  ACC_TYPE      BRANCH              AMOUNT
+---------- ---------- ---------- ------------- --------------- ----------
+      1111 sai        SBI        savings       Guntur               50000
+      2222 manasa     SBI        NRI           Hyderabad            65000
+      3333 Anjali     HDFC       FD            Guntur              300000
+      4444 Anji       Fedral     Savings       Guntur               16500
+      6666 nani       Indian     RD            Prakasam            458900
+      5555 venkat     union      Savings       Vijayawada             500
+
+6 rows selected.
+
+SQL> rollback to c;
+rollback to c
+*
+ERROR at line 1:
+ORA-01086: savepoint 'C' never established in this session or is invalid
+
+
+SQL> spool off;
+not spooling currently

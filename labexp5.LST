@@ -1,0 +1,142 @@
+SQL> create table Bank_details(Aadhar_no number(12),user_name char(10),Bank_name char(10),Amount number(8),Address varchar2(20));
+
+Table created.
+
+SQL> drop table Bank_details
+  2  drop table Bank_details;
+drop table Bank_details
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> drop table Bank_details;
+
+Table dropped.
+
+SQL> create table Bank_details(Account_no number(12),user_name char(10),Bank_name char(10),Amount number(8),Address varchar2(20));
+
+Table created.
+
+SQL> insert into bank_details values(12334,'padma','HDFC',15000,'Prakasam');
+
+1 row created.
+
+SQL> insert into bank_details values(64782,'Anjali','SBI',50000,'Hyderabad');
+
+1 row created.
+
+SQL> insert into bank_details values(26438,'srilaxmi','UNION',30000,'Hyderabad');
+
+1 row created.
+
+SQL> insert into bank_details values(33274,'mallika','SBI',55000,'Guntur');
+
+1 row created.
+
+SQL> insert into bank_details values(32462,'gopi','Andhra',23000,'warangal');
+
+1 row created.
+
+SQL> select * from Bank_details;
+
+ACCOUNT_NO USER_NAME  BANK_NAME      AMOUNT ADDRESS                             
+---------- ---------- ---------- ---------- --------------------                
+     12334 padma      HDFC            15000 Prakasam                            
+     64782 Anjali     SBI             50000 Hyderabad                           
+     26438 srilaxmi   UNION           30000 Hyderabad                           
+     33274 mallika    SBI             55000 Guntur                              
+     32462 gopi       Andhra          23000 warangal                            
+
+SQL> select Bank_name,count(user_name) from Bank_details group by Bank_name;
+
+BANK_NAME  COUNT(USER_NAME)                                                     
+---------- ----------------                                                     
+HDFC                      1                                                     
+SBI                       2                                                     
+UNION                     1                                                     
+Andhra                    1                                                     
+
+SQL> select Bank_name,count(user_name) from Bank_details group by Bank_name order by count(user_name) desc;
+
+BANK_NAME  COUNT(USER_NAME)                                                     
+---------- ----------------                                                     
+SBI                       2                                                     
+Andhra                    1                                                     
+UNION                     1                                                     
+HDFC                      1                                                     
+
+SQL> select Bank_name,count(user_name) from Bank_details group by Bank_name order by count(user_name) ase;
+select Bank_name,count(user_name) from Bank_details group by Bank_name order by count(user_name) ase
+                                                                                                 *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select Bank_name,count(user_name) from Bank_details group by Bank_name order by count(user_name) asc;
+
+BANK_NAME  COUNT(USER_NAME)                                                     
+---------- ----------------                                                     
+HDFC                      1                                                     
+Andhra                    1                                                     
+UNION                     1                                                     
+SBI                       2                                                     
+
+SQL> insert into bank_details values(36272,'venkat','HDFC',25000,'Guntur');
+
+1 row created.
+
+SQL> insert into bank_details values(89797,'subbu','Andhra',35000,'Prakasam');
+
+1 row created.
+
+SQL> select Bank_name,count(user_name) from Bank_details group by Bank_name having count(*)>1;
+
+BANK_NAME  COUNT(USER_NAME)                                                     
+---------- ----------------                                                     
+HDFC                      2                                                     
+SBI                       2                                                     
+Andhra                    2                                                     
+
+SQL> insert into bank_details values(13497,'Teja','SBI',15000,'vijayawada');
+
+1 row created.
+
+SQL> select * from Bank_details order by by Amount asc;
+select * from Bank_details order by by Amount asc
+                                    *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from Bank_details order by Amount asc;
+
+ACCOUNT_NO USER_NAME  BANK_NAME      AMOUNT ADDRESS                             
+---------- ---------- ---------- ---------- --------------------                
+     12334 padma      HDFC            15000 Prakasam                            
+     13497 Teja       SBI             15000 vijayawada                          
+     32462 gopi       Andhra          23000 warangal                            
+     36272 venkat     HDFC            25000 Guntur                              
+     26438 srilaxmi   UNION           30000 Hyderabad                           
+     89797 subbu      Andhra          35000 Prakasam                            
+     64782 Anjali     SBI             50000 Hyderabad                           
+     33274 mallika    SBI             55000 Guntur                              
+
+8 rows selected.
+
+SQL> select * from Bank_details order by Amount desc;
+
+ACCOUNT_NO USER_NAME  BANK_NAME      AMOUNT ADDRESS                             
+---------- ---------- ---------- ---------- --------------------                
+     33274 mallika    SBI             55000 Guntur                              
+     64782 Anjali     SBI             50000 Hyderabad                           
+     89797 subbu      Andhra          35000 Prakasam                            
+     26438 srilaxmi   UNION           30000 Hyderabad                           
+     36272 venkat     HDFC            25000 Guntur                              
+     32462 gopi       Andhra          23000 warangal                            
+     13497 Teja       SBI             15000 vijayawada                          
+     12334 padma      HDFC            15000 Prakasam                            
+
+8 rows selected.
+
+SQL> spool off;
